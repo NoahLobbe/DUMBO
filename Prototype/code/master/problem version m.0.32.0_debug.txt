@@ -1,0 +1,58 @@
+29 august
+
+Genuine Arduino used.
+Code version is 0.32:	Sketch uses 6804 bytes (21%) of program storage space. Maximum is 32256 bytes. Global variables use 624 bytes (30%) of dynamic memory, leaving 1424 bytes for local variables. Maximum is 2048 bytes.
+
+LED states explained:
+- green LED (OBJECT_DETECTED_LED_PIN) turns on when an object less than 1100mm (object_avoidance_distance_threshold_mm) is detected.
+- red LED (MOTION_LED_PIN ) not used currently
+- blue LED (STUCK_LED_PIN) does exactly what it says on the tin.
+
+
+Definitions:
+- robot battery: batteries inbuilt for RC
+
+
+After colliding with something/seeing that it is stuck, the blue LED stays on. Even after moving the robot such that it should be able to see it can move. Additional observation is that the 5V output on the Arduino drops to 3V and stays there during this period.
+Current setup is powering the L298N IC logic from Arduino 5V.
+
+Another test using VIN on Arduino to be an output powering L298N IC.
+NOt just this case, but very prominant in this case was that when it bumped into something it reset. However, turning off the motor powersupply revealed that the Arduino was reseting and restarting by its self with no apparent reason. VIN still outputed ~5V. 9V battery used to power Arduino is at ~7V so still okay.
+
+Powering the robot back on it was fine. Then it ran into a rosemary bush and couldn't see that it was stuck. Reset itself a couple of times, so I turned off the motor power supply to see if it was that; it was not, the Arduino reseting itself a couple of times more. Turned it off.
+
+
+Transition back to using the L298N on board 5V regulator to see if it makes a difference. Thus, the vehicle battery powers everything (powering arduino through VIN from the L298N, now 5V output). It hit some pipe work and prevented it from moving and then it reset. It hit a chair and didn't reset till I picked it up then it appeared to be reseting itself. Tried again and it got stuck on grass and reset itself numerous times; a voltage reading showed that the L298N 5V output stayed at 5V.
+
+A different Arduino (SMD IC)seemed to be better however, it did reset when robot stuck on grass but L298N still supplying ~5V for operation.
+
+Now trying the SMD Arduino but powering it with the 9V battery like before with the original Arduino. Using proper 5V output to power L298N logic. Ran on to grass and hit a plastic chair and did NOT reset; potential fix?
+
+Running the above again.Was doing fine till it hit the wooden screen, blue LED turned on (as well as green as expected) and stopped; however, moving it to a better position did nothing. Voltage check showed Arduino supplying 3.24V to L298N IC logic, and 4.9V on the 9V battery pre-Arduino (Arduino still running though). Just sitting there, with blue and green LEDs on. No wires loose. Robot batteries showing a normal 7.9V. Pressing the reset button, the Arduino just goes back to the same state. Turning off both power supplies. Turning them back on, the robot starts forward then stops returning to blue and green LED on. Another on and off repeats the last sentence. Nothing has been hot during this entire document.
+
+PLugging in the Arduino to laptop to attempt to reinstall code, then turning on robot batteries, it starts functioning normally. Unplugging and turning off, it the RX LED starts blinking and then stops staying on, while not moving. Another on/off it starts forward then stops with blue and green LEDs on.
+
+setting PRINT_RESULTS to false and re uploading. Starts off fine, runs into landing stops with blue and green LEDs on; its 'locked up' again. Voltages at this point are:
+- Residual 1.38V between L298N 12V and GND
+- 7.14V for 9V battery
+- 7.89V robot battery
+- 3.3V (on 5V output) for Arduino when turned on (started then locked up again).
+
+Re testing with just a simple motor driver control program using Serial, when robot stuck doesn't reset Arduino. Adding `RC_Car.drive('F', 255);` to test if the laptop power is changing things. No reseting problem. Still locked up though.
+
+In summary, primary problem is the unapparent 'lock up' and then also the reseting problem. 
+
+
+Commented out `else if (withinTolerance(distance_mm, prev_distance_mm, STUCK_TOLERANCE) && (distance_mm <= 400)) { //yes that is a hard coded number...
+    return true;` from `isVehicleStuck(...)`
+Did nothing. Still locked up with green and blue LED, but also locked up with just blue LED on.
+
+Added blinking STUCK_LED_PIN (blue) LED to `else if (is_stuck) {...}`. Turned on, but not the robot supply, and it said it was stuck (blue blinking) but nothing was within STUCK_DISTANCE_MM.
+
+Replaced Ultrasonic. Changed nothing.
+
+Removed `timeout=0` in `pulseIn(...)`. It hit something and saw it was stuck, but never finished blinking. One reset later, it spontaneously thought it was stuck and stopped everything.
+
+Uploading 0.31; still thought itself stuck, blue LED flickering. CIrcuit is slightly different to when 0.31 was made, that version had the arduino powered by L298N regulator
+
+Changed power circuit so that Arduino was powered of L298N regulated 5V and it seemed to work better. Though a couple of small similar bugs still seem to be present, so code branch and rebuild is HIGHLY ADVISED
