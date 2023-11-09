@@ -1,0 +1,32 @@
+Last updated 24 August 2023, Noah Lobbe
+
+How version system works, V.W.XY.Z
+ * V is either 'b' or 'm' to indicate a branch or master
+ * W is iteration of completed product.
+ * X is incremented when a big function/feature/sensor is added
+ * Y is just code improvements, no new stuff as that would classify as X
+ * Z is the name of the branch, or if master than just = 0
+
+Version log
+master
+	| m.0.10.0 Added motor driver
+	|
+	| m.0.11.0 Moved motor driver code into a neat class
+	|
+	| m.0.20.0 Added PIR motion sensor
+	|
+	| m.0.21.0 Moved PIR motion sensor code into a neat class
+	|	
+	| m.0.30.0 Added Ultrasonic sensor
+	|
+	| m.0.31.0 Code modifications
+	| 
+	| m.0.32.0 More code modifications. Note for previous versions: if (distance <=minimum_turning_distance_mm) is in wrong spot to ever be executed...
+
+branch_rebuild ##############make sure to mention this annoying bug in final solution
+	| b.0.30.rebuild Stripping back to basics. PIR not implemented in main loop.
+	|
+	| b.0.40.rebuild Reintroducing previous_distance stuff
+
+
+//really need to add an encoder to the motor output to determine travel distances//
