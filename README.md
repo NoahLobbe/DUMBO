@@ -13,12 +13,16 @@ All inside the folder `Prototype`.
 
 
 ## Finals
+BEWARNED, things are messy; view at your own peril :D
+
 ### 3D Printing
 Contains .STL's and some slicing images
 
 
 ### Code
-Coming soon.
+`powerHD-1501MG` is the testing code to calibrate/check the servo is steering correctly.
+`Version3_reversing attempt` and `Version4` were coded to use two shift registers in, cascaded. However, they were not needed in the final DUMBO. `shift_registers` is a testing file to make sure they are working, and make it easier to debug, compared to integrating it straight into the main code and figuring out "what the HECK is wrong?!??!?".
+`Version6` is the last version. During testing, two Ultrasonics were needed to be registered stuck for DUMBO to be stuck, but performance might be better with only one required. Dunno.
 
 ### Images
 Coming soon.
