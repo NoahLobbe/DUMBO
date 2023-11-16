@@ -28,3 +28,4 @@ Contains .STL's and some slicing images
 Here are some:
 ![DUMBO angled image](https://github.com/NoahLobbe/DUMBO/blob/8cb51901ea5705011769643a7de06da44f109280/Finals/Images/IMG_5831.JPG)
 ![DUMBO insides](https://github.com/NoahLobbe/DUMBO/blob/8cb51901ea5705011769643a7de06da44f109280/Finals/Images/IMG_5832.JPG)
+![Top Shell under construction](https://github.com/NoahLobbe/DUMBO/blob/7a0fb79ec815d9e6deacdc88252c144873da66a3/Finals/Images/IMG_1087.JPG)
