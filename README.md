@@ -25,4 +25,6 @@ Contains .STL's and some slicing images
 `Version6` is the last version. During testing, two Ultrasonics were needed to be registered stuck for DUMBO to be stuck, but performance might be better with only one required. Dunno.
 
 ### Images
-They are there :)
+Here are some:
+![DUMBO angled image](https://github.com/NoahLobbe/DUMBO/blob/8cb51901ea5705011769643a7de06da44f109280/Finals/Images/IMG_5831.JPG)
+![DUMBO insides](https://github.com/NoahLobbe/DUMBO/blob/8cb51901ea5705011769643a7de06da44f109280/Finals/Images/IMG_5832.JPG)
